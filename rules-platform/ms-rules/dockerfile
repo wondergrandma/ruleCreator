@@ -1,0 +1,14 @@
+FROM python:3.10.0-alpine
+
+WORKDIR /app
+
+COPY ./requirements.txt /app
+COPY view.py /app
+
+#RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
+
+ENV FLASK_APP=view.py
+
+CMD ["flask", "run", "--host", "0.0.0.0"]
