@@ -1,2 +1,2 @@
 # ruleCreator
-Web platform for creating corealiton rules with integrated GitLab
+Web platform for creating corealiton rules for SIEM solutions with integrated GitLab
