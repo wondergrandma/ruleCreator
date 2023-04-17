@@ -36,4 +36,8 @@ DIR_NAMES = ["RSA", "QRADAR", "SOLARWINDS", "DEFAULT"]
 #Dir for not matched rules
 DEFAULT_DIR = "DEFAULT"
 
+
+#-------- MONGO DB CONNECTION ----------
+URI = "mongodb://127.0.0.1:27017"
+
 #-------- URL FOR CREATING EMPTY DIRS ----------

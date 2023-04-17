@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 import json, gitlab, requests, uuid, bcrypt, config_user
+from pymongo import MongoClient
 import database.database_config
 from database.create_database import User
 
@@ -40,6 +41,21 @@ def createEmptyDir(token, repo_id):
                         "branch": "main",
                         "content": "I am an initialization file, don't worry about me. :)",
                         "commit_message": "Initialization file"})
+
+#Tvorba usera v MongoDB
+def create_user_mongo(email, name):
+    client = MongoClient(config_user.URI)
+    db = client.users_commit_hashes
+    collection = db.users
+
+    document = {
+        "user_email": f"{email}",
+        "user_name": f"{name}",
+        "commit_hashes": []
+    }
+
+    inserted_id = collection.insert_one(document).inserted_id
+    return str(inserted_id)
 
 #Tvorba používateľa na základe informácii z POST requestu
 def create(data):
@@ -102,8 +118,11 @@ def create(data):
         mySalt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(bytePwd, mySalt)
 
+        #Zavolanie funkcie na tvorbu usera v MongoDb a ulozenie vrateneho ID do premennej
+        mong = create_user_mongo(user_email, user_nick)
+
         #Vytvorenie usera v databazovom subore
-        new_user = User(public_id=str(uuid.uuid4()), repository_id=new_repo, gitlab_id=gitlab_user_id, email=user_email, name=user_name, surname=user_surname, nick=user_nick, password=hashed_password.decode('utf-8'))
+        new_user = User(public_id=str(uuid.uuid4()), repository_id=new_repo, gitlab_id=gitlab_user_id, email=user_email, name=user_name, surname=user_surname, nick=user_nick, password=hashed_password.decode('utf-8'), mongo_db_id=mong)
         local_session.add(new_user)
         local_session.commit()
 

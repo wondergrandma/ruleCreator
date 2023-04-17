@@ -24,6 +24,7 @@ class User(Base):
     surname = NullColumn(String(50))
     nick = NullColumn(String(50))
     password = NullColumn(String(100))
+    mongo_db_id = NullColumn(String(50))
     
 #Prákaz, kotrý vytvorí tabulku/ky na základe predefinovaných tried 
 Base.metadata.create_all(engine)

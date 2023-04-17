@@ -153,6 +153,12 @@ class GetOldVersion(Resource):
         print(req)
         print(req.json())
         return req.json()
+    
+class GetContent(Resource):
+    def post(self):
+        data = request.data
+        req = requests.post(ms_rule_url + config_gateway.MS_RULES_API_ENDPOINT_CON, data)
+        return req.json()
 #---------------- MAIN RESOURCES ------------------
 
 #Definovanie endpointov
@@ -162,6 +168,7 @@ api.add_resource(ShowFiles, '/v1/showFiles')
 api.add_resource(UpdateFiles, '/v1/updateFile')
 api.add_resource(CreateUser, '/v1/createUser')
 api.add_resource(GetOldVersion, '/v1/oldVersion')
+api.add_resource(GetContent, '/v1/GetContent')
 
 if __name__ == '__main__':
     #Konfigurácia API, url a port

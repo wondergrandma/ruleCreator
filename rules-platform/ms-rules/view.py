@@ -4,7 +4,7 @@ from flask_cors import CORS
 import gitlab
 import config
 import json 
-from functions import pushFile, showMyFiles, updateFiles, createBranch
+from functions import pushFile, showMyFiles, updateFiles, createBranch, getCertainFile
 
 
 #Definovanie API endpointov, volanie funkcií pod každým, ktorý je definovaný.
@@ -28,22 +28,23 @@ class SortRules(Resource):
         type = json_data['type']
         type = type.upper()
         text = json_data['data']
+        name = json_data['name']
 
         match type:
             case "RSA":
-                stemp = pushFile(type, text)
+                stemp = pushFile(type, text, name)
                 return stemp
 
             case "QRADAR":
-                stemp = pushFile(type, text)
+                stemp = pushFile(type, text, name)
                 return stemp
                 
             case "SOLARWINDS":
-                stemp = pushFile(type, text)
+                stemp = pushFile(type, text, name)
                 return stemp
 
             case _:
-                stemp = pushFile(type, text)
+                stemp = pushFile(type, text, name)
                 return stemp
 
 class ShowFiles(Resource):
@@ -68,6 +69,14 @@ class OldVersion(Resource):
         data = request.data
 
         version = createBranch(data)
+        return version
+
+class FileContent(Resource):
+    def post(self):
+        data = request.data
+
+        content = getCertainFile(data)
+        return content
 
 #---------------- MAIN RESOURCES ------------------
 #definovanie endpointov
@@ -75,6 +84,7 @@ api.add_resource(SortRules, '/data')
 api.add_resource(ShowFiles, '/show')
 api.add_resource(Update, "/update")
 api.add_resource(OldVersion, "/old")
+api.add_resource(FileContent, "/content")
 
 if __name__ == '__main__':
     #Konfigurácia API, url a port

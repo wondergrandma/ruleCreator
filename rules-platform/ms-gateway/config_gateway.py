@@ -15,7 +15,7 @@ MS_RULE_IP = "http://127.0.0.1"
 MS_RULE_PORT = ":5101"
             #--------------#
 MS_USER_IP = "http://127.0.0.1"
-MS_USER_PORT = "5115"
+MS_USER_PORT = ":5115"
 
 #-------- API SERVER ENDPOINTS ----------
 
@@ -23,5 +23,6 @@ MS_RULES_API_ENDPOINT_DAT = "/data"
 MS_RULES_API_ENDPOINT_SHO = "/show"
 MS_RULES_API_ENDPOINT_UPD = "/update"
 MS_RULES_API_ENDPOINT_OLD = "/old"
+MS_RULES_API_ENDPOINT_CON = "/content"
             #--------------#
 MS_USER_API_ENDPOINT_CRU = "/user"
