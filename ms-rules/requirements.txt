@@ -1,0 +1,6 @@
+flask
+flask_restful
+python-gitlab
+sqlalchemy
+psycopg2-binary
+flask-cors

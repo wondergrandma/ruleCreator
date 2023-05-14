@@ -1,0 +1,8 @@
+POSTGRE_URLS = "postgresql://localhost"
+POSTGRE_DIALECT = "postgresql"
+POSTGRE_DRIVER = "psycopg2"
+POSTGRE_USERNAME = "oliverbielik"
+POSTGRE_PASSWORD = "root"
+POSTGRE_HOST = "localhost"
+POSTGRE_PORT = "5432"
+POSTGRE_DATABASE_NAME = "test_app"
